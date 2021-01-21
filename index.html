@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<title>AJAX Documentation</title>
+	<meta charset="utf-8" />
 	<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -9,16 +10,264 @@
 		<nav id="nav">
 		</nav>
 		<main id="main-doc">
-			<section class="main-section">Home</section>
-			<section class="main-section">What is AJAX?</section>
-			<section class="main-section">Technologies</section>
-			<section class="main-section">Examples</section>
-			<section class="main-section">Browser Support</section>
-			<section class="main-section">Action</section>
-			<section class="main-section">XMLHttpRequest</section>
-			<section class="main-section">Database Operations</section>
-			<section class="main-section">Security</section>
-			<section class="main-section">Issues</section>
+			<section class="main-section" id="home">
+				<header>Home</header>
+				<p>AJAX is a web development technique for creating interactive web applications. If you know JavaScript, HTML, CSS, and XML, then you need to spend just one hour to start with AJAX.</p>
+
+				<h3>Why to learn AJAX?</h3>
+				
+				<p>AJAX stands for Asynchronous JavaScript and XML. AJAX is a new technique for creating better, faster, and more interactive web applications with the help of XML, HTML, CSS, and Java Script.</p>
+
+				<ul>
+					<li>
+						Ajax uses XHTML for content, CSS for presentation, along with Document Object Model and JavaScript for dynamic content display.
+					</li>
+					<li>
+						Conventional web applications transmit information to and from the sever using synchronous requests. It means you fill out a form, hit submit, and get directed to a new page with new information from the server.
+					</li>
+					<li>
+						With AJAX, when you hit submit, JavaScript will make a request to the server, interpret the results, and update the current screen. In the purest sense, the user would never know that anything was even transmitted to the server.
+					</li>
+					<li>
+						XML is commonly used as the format for receiving server data, although any format, including plain text, can be used.
+					</li>
+					<li>
+						AJAX is a web browser technology independent of web server software.
+					</li>
+					<li>
+						A user can continue to use the application while the client program requests information from the server in the background.
+					</li>
+					<li>
+						Intuitive and natural user interaction. Clicking is not required, mouse movement is a sufficient event trigger.
+					</li>
+					<li>
+						Data-driven as opposed to page-driven.
+					</li>
+				</ul>
+
+				<h3>Rich Internet Application Technology</h3>
+
+				<p>
+					AJAX is the most viable Rich Internet Application (RIA) technology so far. It is getting tremendous industry momentum and several tool kit and frameworks are emerging. But at the same time, AJAX has browser incompatibility and it is supported by JavaScript, which is hard to maintain and debug.
+				</p>
+
+				<h3>AJAX is Based on Open Standards</h3>
+
+				<p>
+					AJAX is based on the following open standards −
+				</p>
+
+				<ul>
+					<li>Browser-based presentation using HTML and Cascading Style Sheets (CSS).</li>
+					<li>Data is stored in XML format and fetched from the server.</li>
+					<li>Behind-the-scenes data fetches using XMLHttpRequest objects in the browser.</li>
+					<li>JavaScript to make everything happen.</li>
+				</ul>
+
+				<h3>Audience</h3>
+				<p>
+					This tutorial will be useful for web developers who want to learn how to create interactive webpages as well as improve their speed and usability using AJAX.
+				</p>
+
+				<h3>Prerequisites</h3>
+				<p>
+					It is highly recommended that you are familiar with HTML and JavaScript before attempting this tutorial.
+				</p>
+			</section>
+			<section class="main-section" id="what_is_ajax?">
+				<header>What is AJAX?</header>
+				<p>
+					AJAX stands for Asynchronous JavaScript and XML. AJAX is a new technique for creating better, faster, and more interactive web applications with the help of XML, HTML, CSS, and Java Script.
+				</p>
+
+				<ul>
+					<li>
+						Ajax uses XHTML for content, CSS for presentation, along with Document Object Model and JavaScript for dynamic content display.
+					</li>
+					<li>
+						Conventional web applications transmit information to and from the sever using synchronous requests. It means you fill out a form, hit submit, and get directed to a new page with new information from the server.
+					</li>
+					<li>
+						With AJAX, when you hit submit, JavaScript will make a request to the server, interpret the results, and update the current screen. In the purest sense, the user would never know that anything was even transmitted to the server.
+					</li>
+					<li>
+						XML is commonly used as the format for receiving server data, although any format, including plain text, can be used.s
+					</li>
+					<li>
+						AJAX is a web browser technology independent of web server software.
+					</li>
+					<li>
+						A user can continue to use the application while the client program requests information from the server in the background.
+					</li>
+					<li>
+						Intuitive and natural user interaction. Clicking is not required, mouse movement is a sufficient event trigger.
+					</li>
+					<li>
+						Data-driven as opposed to page-driven.
+					</li>
+				</ul>
+
+				<h3>Rich Internet Application Technology</h3>
+				<p>
+					AJAX is the most viable Rich Internet Application (RIA) technology so far. It is getting tremendous industry momentum and several tool kit and frameworks are emerging. But at the same time, AJAX has browser incompatibility and it is supported by JavaScript, which is hard to maintain and debug.
+				</p>
+
+				<h3>AJAX is Based on Open Standards</h3>
+				<p>AJAX is based on the following open standards −</p>
+				<ul>
+					<li>
+						Browser-based presentation using HTML and Cascading Style Sheets (CSS).
+					</li>
+					<li>
+						Data is stored in XML format and fetched from the server.
+					</li>
+					<li>
+						Behind-the-scenes data fetches using XMLHttpRequest objects in the browser.
+					</li>
+					<li>
+						JavaScript to make everything happen.
+					</li>
+				</ul>
+			</section>
+			<section class="main-section" id="technologies">
+				<header>Technologies</header>
+				<p>
+					AJAX cannot work independently. It is used in combination with other technologies to create interactive webpages.
+				</p>
+
+				<h3>Javascript</h3>
+				<ul>
+					<li>Loosely typed scripting language.</li>
+					<li>JavaScript function is called when an event occurs in a page.</li>
+					<li>Glue for the whole AJAX operation.</li>
+				</ul>
+
+				<h3>DOM</h3>
+				<ul>
+					<li>API for accessing and manipulating structured documents.</li>
+					<li>Represents the structure of XML and HTML documents.</li>
+				</ul>
+
+				<h3>CSS</h3>
+				<ul>
+					<li>Allows for a clear separation of the presentation style from the content and may be changed programmatically by JavaScript</li>
+				</ul>
+
+				<h3>XMLHttpRequest</h3>
+				<ul>
+					<li>JavaScript object that performs asynchronous interaction with the server.</li>
+				</ul>
+			</section>
+			<section class="main-section" id="examples">
+				<header>Examples</header>
+				<p>Here is a list of some famous web applications that make use of AJAX.</p>
+
+				<h3>Google Maps</h3>
+				<p>A user can drag an entire map by using the mouse, rather than clicking on a button.</p>
+				<ul>
+					<li><a href="https://maps.google.com" target="_blank">https://maps.google.com</a></li>
+				</ul>
+
+				<h3>Google Suggest</h3>
+				<p>As you type, Google offers suggestions. Use the arrow keys to navigate the results.</p>
+				<ul>
+					<li><a href="https://keywordtool.io/google-suggest" target="_blank">https://keywordtool.io/google-suggest</a></li>
+				</ul>
+
+				<h3>Gmail</h3>
+				<p>Gmail is a webmail built on the idea that emails can be more intuitive, efficient, and useful.</p>
+				<ul>
+					<li><a href="https://gmail.com/" target="_blank">https://gmail.com/</a></li>
+				</ul>
+
+				<h3>Yahoo Maps (new)</h3>
+				<p>Now it's even easier and more fun to get where you're going!</p>
+				<ul>
+					<li><a href="https://maps.yahoo.com/" target="_blank">https://maps.yahoo.com/</a></li>
+				</ul>
+			</section>
+			<section class="main-section" id="browser_support">
+				<header>Browser Support</header>
+				<p>All the available browsers cannot support AJAX. Here is a list of major browsers that support AJAX.</p>
+
+				<ul>
+					<li>Mozilla Firefox 1.0 and above.</li>
+					<li>Netscape version 7.1 and above.</li>
+					<li>Apple Safari 1.2 and above.</li>
+					<li>Microsoft Internet Explorer 5 and above.</li>
+					<li>Konqueror.</li>
+					<li>Opera 7.6 and above.</li>
+				</ul>
+				<p>When you write your next application, do consider the browsers that do not support AJAX.</p>
+				<p>
+					<strong>NOTE</strong> − When we say that a browser does not support AJAX, it simply means that the browser does not support the creation of Javascript object – XMLHttpRequest object.
+				</p>
+
+				<h3>Writing Browser Specific Code</h3>
+				<p>The simplest way to make your source code compatible with a browser is to use <em>try...catch</em> blocks in your JavaScript.</p>
+
+				
+				<code>
+					  <pre>  
+					         //Browser Support Code
+					         function ajaxFunction() {
+					            var ajaxRequest;  // The variable that makes Ajax possible!
+
+					            try {
+					               // Opera 8.0+, Firefox, Safari 
+					               ajaxRequest = new XMLHttpRequest();
+					            } catch (e) {
+
+					               // Internet Explorer Browsers
+					               try {
+					                  ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+					               } catch (e) {
+					                  
+					                  try {
+					                     ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+					                  } catch (e) {
+
+					                     // Something went wrong
+					                     alert("Your browser broke!");
+					                     return false;
+					                  }
+					               }
+					            }
+					         }
+					    </pre>
+				</code>
+
+				<p>In the above JavaScript code, we try three times to make our XMLHttpRequest object. Our first attempt −</p>
+				<ul>
+					<li>ajaxRequest = new XMLHttpRequest();</li>
+				</ul>
+
+				<p>It is for Opera 8.0+, Firefox, and Safari browsers. If it fails, we try two more times to make the correct object for an Internet Explorer browser with −</p>
+				<ul>
+					<li>ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");</li>
+					<li>ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");</li>
+				</ul>
+
+				<p>
+					If it doesn't work, then we can use a very outdated browser that doesn't support XMLHttpRequest, which also means it doesn't support AJAX.
+				</p>
+			</section>
+			<section class="main-section" id="action">
+				<header>Action</header>
+				
+			</section>
+			<section class="main-section" id="xmlhttprequest">
+				<header>XMLHttpRequest</header>
+			</section>
+			<section class="main-section" id="database_operations">
+				<header>Database Operations</header>
+			</section>
+			<section class="main-section" id="security">
+				<header>Security</header>
+			</section>
+			<section class="main-section" id="issues">
+				<header>Issues</header>
+			</section>
 		</main>
 	</div>
 </body>
