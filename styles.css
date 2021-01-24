@@ -7,6 +7,10 @@ body {
 
 body * {
 	font-family: "Source Sans Pro", sans-serif;
-	background: aquamarine;
+}
+
+table, td, th {
+	border: 1px solid #555;
+	border-collapse: collapse;
 }
 

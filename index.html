@@ -254,10 +254,295 @@
 			</section>
 			<section class="main-section" id="action">
 				<header>Action</header>
-				
+				<p>This chapter gives you a clear picture of the exact steps of AJAX operation.</p>
+
+				<h3>Steps of AJAX Operation</h3>
+				<ul>
+					<li>A client event occurs.</li>
+					<li>An XMLHttpRequest object is created.</li>
+					<li>The XMLHttpRequest object is configured.</li>
+					<li>The XMLHttpRequest object makes an asynchronous request to the Webserver.</li>
+					<li>The Webserver returns the result containing XML document.</li>
+					<li>The XMLHttpRequest object calls the callback() function and processes the result.</li>
+					<li>The HTML DOM is updated.</li>
+				</ul>
+				<p>Let us take these steps one by one.</p>
+
+				<h3>A Client Event Occurs</h3>
+				<ul>
+					<li>A JavaScript function is called as the result of an event.</li>
+					<li>Example − <em>validateUserId()</em> JavaScript function is mapped as an event handler to an onkeyup event on input form field whose id is set to <em>"userid"</em></li>
+					<li>input type = "text" size = "20" id = "userid" name = "id" onkeyup = "validateUserId();".'</li>
+				</ul>
+
+				<h3>The XMLHttpRequest Object is Created</h3>
+				<code>
+					<pre>
+						var ajaxRequest;  // The variable that makes Ajax possible!
+							function ajaxFunction() {
+							   try {
+							      // Opera 8.0+, Firefox, Safari
+							      ajaxRequest = new XMLHttpRequest();
+							   } catch (e) {
+							   
+							      // Internet Explorer Browsers
+							      try {
+							         ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+							      } catch (e) {
+							      
+							         try {
+							            ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+							         } catch (e) {
+							      
+							            // Something went wrong
+							            alert("Your browser broke!");
+							            return false;
+							         }
+							      }
+							   }
+							}
+					</pre>
+				</code>
+
+				<h3>The XMLHttpRequest Object is Configured</h3>
+				<p>In this step, we will write a function that will be triggered by the client event and a callback function processRequest() will be registered.</p>
+				<code>
+					<pre>
+					function validateUserId() {
+					   ajaxFunction();
+					   
+					   // Here processRequest() is the callback function.
+					   ajaxRequest.onreadystatechange = processRequest;
+					   
+					   if (!target) target = document.getElementById("userid");
+					   var url = "validate?id=" + escape(target.value);
+					   
+					   ajaxRequest.open("GET", url, true);
+					   ajaxRequest.send(null);
+					}
+					</pre>
+				</code>
+
+				<h3>Making Asynchronous Request to the Webserver</h3>
+				<p>Source code is available in the above piece of code. Code written in bold typeface is responsible to make a request to the webserver. This is all being done using the XMLHttpRequest object <em>ajaxRequest</em>.</p>
+				<code>
+					<pre>
+						function validateUserId() {
+							   ajaxFunction();
+							   
+							   // Here processRequest() is the callback function.
+							   ajaxRequest.onreadystatechange = processRequest;
+							   
+							   if (!target) target = document.getElementById("userid");
+							   var url = "validate?id = " + escape(target.value);
+							   
+							   ajaxRequest.open("GET", url, true);
+							   ajaxRequest.send(null);
+							}
+					</pre>
+				</code>
+				<p>Assume you enter Zara in the userid box, then in the above request, the URL is set to <em>"validate?id = Zara"</em>.</p>
+
+				<h3>Webserver Returns the Result Containing XML Document</h3>
+				<p>You can implement your server-side script in any language, however its logic should be as follows.</p>
+
+				<ul>
+					<li>Get a request from the client.</li>
+					<li>Parse the input from the client.</li>
+					<li>Do required processing.</li>
+					<li>Send the output to the client.</li>
+				</ul>
+				<p>If we assume that you are going to write a servlet, then here is the piece of code.</p>
+
+				<code>
+					<pre>
+						public void doGet(HttpServletRequest request,
+						   HttpServletResponse response) throws IOException, ServletException {
+						   String targetId = request.getParameter("id");
+						   
+						   if ((targetId != null) && !accounts.containsKey(targetId.trim())) {
+						      response.setContentType("text/xml");
+						      response.setHeader("Cache-Control", "no-cache");
+						      response.getWriter().write("<valid>true</valid>");
+						   } else {
+						      response.setContentType("text/xml");
+						      response.setHeader("Cache-Control", "no-cache");
+						      response.getWriter().write("<valid>false</valid>");
+						   }
+						}
+					</pre>
+				</code>
+
+				<h3>Callback Function processRequest() is Called</h3>
+				<p>The XMLHttpRequest object was configured to call the processRequest() function when there is a state change to the readyState of the XMLHttpRequest object. Now this function will receive the result from the server and will do the required processing. As in the following example, it sets a variable message on true or false based on the returned value from the Webserver.</p>
+
+				<code>
+					<pre>
+						function processRequest() {
+							   if (req.readyState == 4) {
+							      if (req.status == 200) {
+							         var message = ...;
+							...
+							}
+												</pre>
+				</code>
+
+				<h3>The HTML DOM is Updated</h3>
+				<p>This is the final step and in this step, your HTML page will be updated. It happens in the following way −</p>
+				<ul>
+					<li>JavaScript gets a reference to any element in a page using DOM API.</li>
+					<li>The recommended way to gain a reference to an element is to call.
+						<code>
+							<pre>
+								document.getElementById("userIdMessage"), 
+									// where "userIdMessage" is the ID attribute 
+									// of an element appearing in the HTML document
+							</pre>
+						</code>
+					</li>
+					<li>
+						JavaScript may now be used to modify the element's attributes; modify the element's style properties; or add, remove, or modify the child elements. Here is an example −
+
+						<code>
+							<pre>
+								document.getElementById("userIdMessage"), 
+								// where "userIdMessage" is the ID attribute 
+								// of an element appearing in the HTML document
+								JavaScript may now be used to modify the element's attributes; modify the element's style properties; or add, remove, or modify the child elements. Here is an example −
+
+							  script type = "text/javascript">
+								  
+								   function setMessageUsingDOM(message) {
+								      var userMessageElement = document.getElementById("userIdMessage");
+								      var messageText;
+								      
+								      if (message == "false") {
+								         userMessageElement.style.color = "red";
+								         messageText = "Invalid User Id";
+								      } else {
+								         userMessageElement.style.color = "green";
+								         messageText = "Valid User Id";
+								      }
+								      
+								      var messageBody = document.createTextNode(messageText);
+								      
+								      // if the messageBody element has been created simple 
+								      // replace it otherwise append the new element
+								      if (userMessageElement.childNodes[0]) {
+								         userMessageElement.replaceChild(messageBody, userMessageElement.childNodes[0]);
+								      } else {
+								         userMessageElement.appendChild(messageBody);
+								      }
+								   }
+								   
+								/script>
+
+								body>
+								   div id = "userIdMessage"><?div>
+								/body> 
+							</pre>
+						</code>
+					</li>
+				</ul>
 			</section>
 			<section class="main-section" id="xmlhttprequest">
 				<header>XMLHttpRequest</header>
+				<p>
+					The XMLHttpRequest object is the key to AJAX. It has been available ever since Internet Explorer 5.5 was released in July 2000, but was not fully discovered until AJAX and Web 2.0 in 2005 became popular.
+				</p>
+
+				<p>
+					XMLHttpRequest (XHR) is an API that can be used by JavaScript, JScript, VBScript, and other web browser scripting languages to transfer and manipulate XML data to and from a webserver using HTTP, establishing an independent connection channel between a webpage's Client-Side and Server-Side.
+				</p>
+
+				<p>
+					The data returned from XMLHttpRequest calls will often be provided by back-end databases. Besides XML, XMLHttpRequest can be used to fetch data in other formats, e.g. JSON or even plain text.
+				</p>
+
+				<p>
+					You already have seen a couple of examples on how to create an XMLHttpRequest object.
+				</p>
+
+				<p>
+					Listed below are some of the methods and properties that you have to get familiar with.
+				</p>
+
+				<h3>XMLHttpRequest Methods</h3>
+					<ul>
+						<li><strong>abort()</strong>
+							<div>Cancels the current request.</div>
+						</li>
+						<li><strong>getAllResponseHeaders()</strong>
+							<div>Returns the complete set of HTTP headers as a string.</div>
+						</li>
+						<li><strong>getResponseHeader( headerName )</strong>
+							<div>Returns the value of the specified HTTP header.</div>
+						</li>
+						<li><strong>open( method, URL )</strong></li>
+						<li><strong>open( method, URL, async )</strong></li>
+						<li><strong>open( method, URL, async, userName )</strong></li>
+						<li><strong>open( method, URL, async, userName, password )</strong>
+							<div>
+								<p>Specifies the method, URL, and other optional attributes of a request.</p>
+								<p>The method parameter can have a value of "GET", "POST", or "HEAD". Other HTTP methods such as "PUT" and "DELETE" (primarily used in REST applications) may be possible.</p>
+								<p>The "async" parameter specifies whether the request should be handled asynchronously or not. "true" means that the script processing carries on after the send() method without waiting for a response, and "false" means that the script waits for a response before continuing script processing.</p>
+							</div>
+						</li>
+						<li><strong>send( content )</strong>
+							<div>Sends the request.</div></li>
+						<li><strong>setRequestHeader( label, value )</strong>
+							<div>Adds a label/value pair to the HTTP header to be sent.</div></li>
+					</ul>
+
+					<h3>XMLHttpRequest Properties</h3>
+					<ul>
+						<li><strong>onreadystatechange</strong>
+							<div>An event handler for an event that fires at every state change.
+							</div></li>
+						<li><strong>readyState</strong>
+							<div><p>The readyState property defines the current state of the XMLHttpRequest object.</p>
+								<p>The following table provides a list of the possible values for the readyState property −</p>
+								<table>
+									<tr>
+										<th>State</th>
+										<th>Description</th>
+									</tr>
+									<tr>
+										<td>0</td>
+										<td>The request is not initialized.</td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>The request has been set up.</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>The request has been sent.</td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td>The request is in process.</td>
+									</tr>
+									<tr>
+										<td>4</td>
+										<td>The request is completed.</td>
+									</tr>
+								</table>
+								<p><strong>readyState = 0</strong> After you have created the XMLHttpRequest object, but before you have called the open() method.</p>
+								<p><strong>readyState = 1</strong> After you have called the open() method, but before you have called send().</p>
+								<p><strong>readyState = 2</strong> After you have called send().</p>
+								<p><strong>readyState = 3</strong> After the browser has established a communication with the server, but before the server has completed the response.</p>
+								<p><strong>readyState = 4</strong> After the request has been completed, and the response data has been completely received from the server.</p>
+						</li>
+						<li><strong>responseText</strong>
+							<div>Returns the response as a string.</div></li>
+						<li><strong>responseXML</strong>
+							<div>Returns the response as XML. This property returns an XML document object, which can be examined and parsed using the W3C DOM node tree methods and properties.</div></li>
+						<li><strong>status</strong>
+							<div>Returns the status as a number (e.g., 404 for "Not Found" and 200 for "OK").</div></li>
+						<li><strong>statusText</strong>
+							<div>Returns the status as a string (e.g., "Not Found" or "OK").</div></li>
+					</ul>
 			</section>
 			<section class="main-section" id="database_operations">
 				<header>Database Operations</header>
