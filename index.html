@@ -7,7 +7,22 @@
 </head>
 <body>
 	<div id="main">
-		<nav id="nav">
+		<nav id="navbar">
+			<header>AJAX Tutorial</header>
+
+			<ul class="nav-list">
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+				<li><a></a></li>
+			</ul>
 		</nav>
 		<main id="main-doc">
 			<section class="main-section" id="home">
@@ -546,12 +561,243 @@
 			</section>
 			<section class="main-section" id="database_operations">
 				<header>Database Operations</header>
+				<p>To clearly illustrate how easy it is to access information from a database using AJAX, we are going to build MySQL queries on the fly and display the results on "ajax.html". But before we proceed, let us do the ground work. Create a table using the following command.</p>
+
+				<p><strong>NOTE</strong> − We are assuming you have sufficient privilege to perform the following MySQL operations.</p>
+
+				<code>
+					<pre>
+						CREATE TABLE 'ajax_example' (
+						   'name' varchar(50) NOT NULL,
+						   'age' int(11) NOT NULL,
+						   'sex' varchar(1) NOT NULL,
+						   'wpm' int(11) NOT NULL,
+						   PRIMARY KEY  ('name')
+						) 
+					</pre>
+				</code>
+
+				<p>Now dump the following data into this table using the following SQL statements −</p>
+				<code>
+					<pre>
+						INSERT INTO 'ajax_example' VALUES ('Jerry', 120, 'm', 20);
+						INSERT INTO 'ajax_example' VALUES ('Regis', 75, 'm', 44);
+						INSERT INTO 'ajax_example' VALUES ('Frank', 45, 'm', 87);
+						INSERT INTO 'ajax_example' VALUES ('Jill', 22, 'f', 72);
+						INSERT INTO 'ajax_example' VALUES ('Tracy', 27, 'f', 0);
+						INSERT INTO 'ajax_example' VALUES ('Julie', 35, 'f', 90);
+					</pre>
+				</code>
+
+				<h3>Client Side HTML File</h3>
+				<p>Now let us have our client side HTML file, which is ajax.html, and it will have the following code −</p>
+				<code>
+					<pre>
+						html>
+						   body>
+						      script language = "javascript" type = "text/javascript">
+						         <!-- 
+						         //Browser Support Code
+						         function ajaxFunction() {
+						            var ajaxRequest;  // The variable that makes Ajax possible!
+						            
+						            try {        
+						               // Opera 8.0+, Firefox, Safari
+						               ajaxRequest = new XMLHttpRequest();
+						            } catch (e) {
+						               
+						               // Internet Explorer Browsers
+						               try {
+						                  ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+						               } catch (e) {
+						                  
+						                  try {
+						                     ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+						                  } catch (e) {
+						                     // Something went wrong
+						                     alert("Your browser broke!");
+						                     return false;
+						                  }
+						               }
+						            }
+						            
+						            // Create a function that will receive data
+						            // sent from the server and will update
+						            // div section in the same page.
+						            ajaxRequest.onreadystatechange = function() {
+						            
+						               if(ajaxRequest.readyState == 4) {
+						                  var ajaxDisplay = document.getElementById('ajaxDiv');
+						                  ajaxDisplay.innerHTML = ajaxRequest.responseText;
+						               }
+						            }
+						            
+						            // Now get the value from user and pass it to
+						            // server script.
+						            var age = document.getElementById('age').value;
+						            var wpm = document.getElementById('wpm').value;
+						            var sex = document.getElementById('sex').value;
+						            var queryString = "?age = " + age ;
+						            
+						            queryString +=  "&wpm = " + wpm + "&sex = " + sex;
+						            ajaxRequest.open("GET", "ajax-example.php" + queryString, true);
+						            ajaxRequest.send(null); 
+						         }
+						         //-->
+						      /script>
+
+						      form name = 'myForm'>
+						         Max Age: input type = 'text' id = 'age' /> br />
+						         Max WPM: input type = 'text' id = 'wpm' /> br />
+						         Sex: 
+						         
+						         select id = 'sex'>
+						            option value = "m">m/option>
+						            option value = "f">f/option>
+						         /select>
+						         
+						         input type = 'button' onclick = 'ajaxFunction()' value = 'Query MySQL'/>
+						      /form>
+						      
+						      div id = 'ajaxDiv'>Your result will display here/div>
+						   /body>
+						/html>
+					</pre>
+				</code>
+
+				<p><strong>NOTE</strong> − The way of passing variables in the Query is according to HTTP standard and have formA.</p>
+				<code>
+					<pre>URL?variable1 = value1;&variable2 = value2;</pre>
+				</code>
+
+				<h3>Server Side PHP File</h3>
+				<p>Your client-side script is ready. Now, we have to write our server-side script, which will fetch age, wpm, and sex from the database and will send it back to the client. Put the following code into the file "ajax-example.php".</p>
+
+				<code>
+					<pre>
+						<?php
+							$dbhost = "localhost";
+							$dbuser = "dbusername";
+							$dbpass = "dbpassword";
+							$dbname = "dbname";
+								
+							//Connect to MySQL Server
+							mysql_connect($dbhost, $dbuser, $dbpass);
+								
+							//Select Database
+							mysql_select_db($dbname) or die(mysql_error());
+								
+							// Retrieve data from Query String
+							$age = $_GET['age'];
+							$sex = $_GET['sex'];
+							$wpm = $_GET['wpm'];
+								
+							// Escape User Input to help prevent SQL Injection
+							$age = mysql_real_escape_string($age);
+							$sex = mysql_real_escape_string($sex);
+							$wpm = mysql_real_escape_string($wpm);
+								
+							//build query
+							$query = "SELECT * FROM ajax_example WHERE sex = '$sex'";
+
+							if(is_numeric($age))
+							   $query .= " AND age <= $age";
+
+							if(is_numeric($wpm))
+							   $query .= " AND wpm <= $wpm";
+								
+							//Execute query
+							$qry_result = mysql_query($query) or die(mysql_error());
+
+							//Build Result String
+							$display_string = "?table>";
+							$display_string .= "?tr>";
+							$display_string .= "?th>Name?/th>";
+							$display_string .= "?th>Age?/th>";
+							$display_string .= "?th>Sex?/th>";
+							$display_string .= "?th>WPM?/th>";
+							$display_string .= "?/tr>";
+
+							// Insert a new row in the table for each person returned
+							while($row = mysql_fetch_array($qry_result)) {
+							   $display_string .= "?tr>";
+							   $display_string .= "?td>$row[name]?/td>";
+							   $display_string .= "?td>$row[age]?/td>";
+							   $display_string .= "?td>$row[sex]?/td>";
+							   $display_string .= "?td>$row[wpm]?/td>";
+							   $display_string .= "?/tr>";
+							}
+
+							echo "Query: " . $query . "?br />";
+							$display_string .= "?/table>";
+
+							echo $display_string;
+							?>
+					</pre>
+				</code>
 			</section>
 			<section class="main-section" id="security">
 				<header>Security</header>
+				<h3>AJAX Security: Server Side</h3>
+				<ul>
+					<li>AJAX-based Web applications use the same server-side security schemes of regular Web applications.</li>
+					<li>You specify authentication, authorization, and data protection requirements in your web.xml file (declarative) or in your program (programmatic).</li>
+					<li>AJAX-based Web applications are subject to the same security threats as regular Web applications.</li>
+				</ul>
+
+					<h3>AJAX Security: Client Side</h3>
+				<ul>
+					<li>JavaScript code is visible to a user/hacker. Hacker can use JavaScript code for inferring server-side weaknesses.</li>
+					<li>JavaScript code is downloaded from the server and executed ("eval") at the client and can compromise the client by mal-intended code.</li>
+					<li>Downloaded JavaScript code is constrained by the sand-box security model and can be relaxed for signed JavaScript.</li>
+				</ul>
 			</section>
 			<section class="main-section" id="issues">
 				<header>Issues</header>
+				<p>AJAX is growing very fast and that is the reason that it contains many issues with it. We hope with the passes of time, they will be resolved and AJAX will become ideal for web applications. We are listing down a few issues that AJAX currently suffers from.</p>
+
+				<h3>Complexity is increased</h3>
+				<ul>
+					<li>Server-side developers will need to understand that presentation logic will be required in the HTML client pages as well as in the server-side logic.</li>
+					<li>Page developers must have JavaScript technology skills.</li>
+				</ul>
+
+				<h3>AJAX-based applications can be difficult to debug, test, and maintain</h3>
+				<ul>
+					<li>JavaScript is hard to test - automatic testing is hard.</li>
+					<li>Weak modularity in JavaScript.</li>
+					<li>Lack of design patterns or best practice guidelines yet.</li>
+				</ul>
+
+				<h3>Toolkits/Frameworks are not mature yet</h3>
+				<ul>
+					<li>Most of them are in beta phase.</li>
+				</ul>
+
+				<h3>No standardization of the XMLHttpRequest yet</h3>
+				<ul>
+					<li>Future version of IE will address this.</li>
+				</ul>
+
+				<h3>No support of XMLHttpRequest in old browsers</h3>
+				<ul>
+					<li>Iframe will help.</li>
+				</ul>
+
+				<h3>JavaScript technology dependency and incompatibility</h3>
+				<ul>
+					<li>Must be enabled for applications to function.</li>
+					<li>Still some browser incompatibilities exist.</li>
+				</ul>
+
+				<h3>JavaScript code is visible to a hacker</h3>
+				<ul>
+					<li>Poorly designed JavaScript code can invite security problems.</li>
+				</ul>
+			</section>
+			<section id="main-section" id="reference">
+				<h3>Reference</h3>
+				<p>All documentation of this page is taken from <a href="https://www.tutorialspoint.com/ajax/" target="_blank">tutorialspoint</a></p>				
 			</section>
 		</main>
 	</div>
