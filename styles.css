@@ -1,12 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
 
-body {
-	padding: 0;
-	margin: 0;
-}
-
 body * {
 	font-family: "Source Sans Pro", sans-serif;
+	border: 1px solid red;
+}
+
+body {
+	display: inline-flex;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+html {
+	height: 100%;
 }
 
 table, td, th {
@@ -14,3 +21,8 @@ table, td, th {
 	border-collapse: collapse;
 }
 
+#main {
+	display: grid;
+	grid-template-columns: 1.5fr 1fr auto;
+	grid-template-rows: auto;
+}
