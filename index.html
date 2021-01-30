@@ -12,15 +12,15 @@
 
 			<ul class="nav-list">
 				<li><a href="#home" class="nav-link">Home</a></li>
-				<li><a href="" class="nav-link">What is Ajax?</a></li>
-				<li><a href="" class="nav-link">Technologies</a></li>
-				<li><a href="" class="nav-link">Examples</a></li>
-				<li><a href="" class="nav-link">Browser Support</a></li>
-				<li><a href="" class="nav-link">Action</a></li>
-				<li><a href="" class="nav-link">XMLHttpRequest</a></li>
-				<li><a href="" class="nav-link">Database operations</a></li>
-				<li><a href="" class="nav-link">Security</a></li>
-				<li><a href="" class="nav-link">Issues</a></li>
+				<li><a href="#what_is_ajax?" class="nav-link">What is Ajax?</a></li>
+				<li><a href="#technologies" class="nav-link">Technologies</a></li>
+				<li><a href="#examples" class="nav-link">Examples</a></li>
+				<li><a href="#browser_support" class="nav-link">Browser Support</a></li>
+				<li><a href="#action" class="nav-link">Action</a></li>
+				<li><a href="#xmlhttprequest" class="nav-link">XMLHttpRequest</a></li>
+				<li><a href="#database_operations" class="nav-link">Database operations</a></li>
+				<li><a href="#security" class="nav-link">Security</a></li>
+				<li><a href="#issues" class="nav-link">Issues</a></li>
 			</ul>
 		</nav>
 		<main id="main-doc">
@@ -222,7 +222,7 @@
 
 				
 				<code>
-					  <pre>  
+					 
 					         //Browser Support Code
 					         function ajaxFunction() {
 					            var ajaxRequest;  // The variable that makes Ajax possible!
@@ -248,7 +248,7 @@
 					               }
 					            }
 					         }
-					    </pre>
+					   
 				</code>
 
 				<p>In the above JavaScript code, we try three times to make our XMLHttpRequest object. Our first attempt −</p>
@@ -291,7 +291,7 @@
 
 				<h3>The XMLHttpRequest Object is Created</h3>
 				<code>
-					<pre>
+			
 						var ajaxRequest;  // The variable that makes Ajax possible!
 							function ajaxFunction() {
 							   try {
@@ -315,13 +315,13 @@
 							      }
 							   }
 							}
-					</pre>
+				
 				</code>
 
 				<h3>The XMLHttpRequest Object is Configured</h3>
 				<p>In this step, we will write a function that will be triggered by the client event and a callback function processRequest() will be registered.</p>
 				<code>
-					<pre>
+				
 					function validateUserId() {
 					   ajaxFunction();
 					   
@@ -334,13 +334,13 @@
 					   ajaxRequest.open("GET", url, true);
 					   ajaxRequest.send(null);
 					}
-					</pre>
+				
 				</code>
 
 				<h3>Making Asynchronous Request to the Webserver</h3>
 				<p>Source code is available in the above piece of code. Code written in bold typeface is responsible to make a request to the webserver. This is all being done using the XMLHttpRequest object <em>ajaxRequest</em>.</p>
 				<code>
-					<pre>
+				
 						function validateUserId() {
 							   ajaxFunction();
 							   
@@ -353,7 +353,7 @@
 							   ajaxRequest.open("GET", url, true);
 							   ajaxRequest.send(null);
 							}
-					</pre>
+				
 				</code>
 				<p>Assume you enter Zara in the userid box, then in the above request, the URL is set to <em>"validate?id = Zara"</em>.</p>
 
@@ -369,7 +369,7 @@
 				<p>If we assume that you are going to write a servlet, then here is the piece of code.</p>
 
 				<code>
-					<pre>
+				
 						public void doGet(HttpServletRequest request,
 						   HttpServletResponse response) throws IOException, ServletException {
 						   String targetId = request.getParameter("id");
@@ -384,21 +384,21 @@
 						      response.getWriter().write("<valid>false</valid>");
 						   }
 						}
-					</pre>
+				
 				</code>
 
 				<h3>Callback Function processRequest() is Called</h3>
 				<p>The XMLHttpRequest object was configured to call the processRequest() function when there is a state change to the readyState of the XMLHttpRequest object. Now this function will receive the result from the server and will do the required processing. As in the following example, it sets a variable message on true or false based on the returned value from the Webserver.</p>
 
 				<code>
-					<pre>
+				
 						function processRequest() {
 							   if (req.readyState == 4) {
 							      if (req.status == 200) {
 							         var message = ...;
 							...
 							}
-												</pre>
+											
 				</code>
 
 				<h3>The HTML DOM is Updated</h3>
@@ -407,11 +407,11 @@
 					<li>JavaScript gets a reference to any element in a page using DOM API.</li>
 					<li>The recommended way to gain a reference to an element is to call.
 						<code>
-							<pre>
+						
 								document.getElementById("userIdMessage"), 
 									// where "userIdMessage" is the ID attribute 
 									// of an element appearing in the HTML document
-							</pre>
+						
 						</code>
 					</li>
 					<li>
@@ -420,7 +420,7 @@
 						or add, remove, or modify the child elements. Here is an example −
 
 						<code>
-							<pre>
+						
 								document.getElementById("userIdMessage"), 
 								// where "userIdMessage" is the ID attribute 
 								// of an element appearing in the HTML document
@@ -459,7 +459,7 @@
 								body>
 								   div id = "userIdMessage"><?div>
 								/body> 
-							</pre>
+							
 						</code>
 					</li>
 				</ul>
@@ -570,7 +570,7 @@
 				<p><strong>NOTE</strong> − We are assuming you have sufficient privilege to perform the following MySQL operations.</p>
 
 				<code>
-					<pre>
+					
 						CREATE TABLE 'ajax_example' (
 						   'name' varchar(50) NOT NULL,
 						   'age' int(11) NOT NULL,
@@ -578,25 +578,25 @@
 						   'wpm' int(11) NOT NULL,
 						   PRIMARY KEY  ('name')
 						) 
-					</pre>
+					
 				</code>
 
 				<p>Now dump the following data into this table using the following SQL statements −</p>
 				<code>
-					<pre>
+					
 						INSERT INTO 'ajax_example' VALUES ('Jerry', 120, 'm', 20);
 						INSERT INTO 'ajax_example' VALUES ('Regis', 75, 'm', 44);
 						INSERT INTO 'ajax_example' VALUES ('Frank', 45, 'm', 87);
 						INSERT INTO 'ajax_example' VALUES ('Jill', 22, 'f', 72);
 						INSERT INTO 'ajax_example' VALUES ('Tracy', 27, 'f', 0);
 						INSERT INTO 'ajax_example' VALUES ('Julie', 35, 'f', 90);
-					</pre>
+					
 				</code>
 
 				<h3>Client Side HTML File</h3>
 				<p>Now let us have our client side HTML file, which is ajax.html, and it will have the following code −</p>
 				<code>
-					<pre>
+					
 						html>
 						   body>
 						      script language = "javascript" type = "text/javascript">
@@ -666,19 +666,19 @@
 						      div id = 'ajaxDiv'>Your result will display here/div>
 						   /body>
 						/html>
-					</pre>
+					
 				</code>
 
 				<p><strong>NOTE</strong> − The way of passing variables in the Query is according to HTTP standard and have formA.</p>
 				<code>
-					<pre>URL?variable1 = value1;&variable2 = value2;</pre>
+					URL?variable1 = value1;&variable2 = value2;
 				</code>
 
 				<h3>Server Side PHP File</h3>
 				<p>Your client-side script is ready. Now, we have to write our server-side script, which will fetch age, wpm, and sex from the database and will send it back to the client. Put the following code into the file "ajax-example.php".</p>
 
 				<code>
-					<pre>
+					
 						<?php
 							$dbhost = "localhost";
 							$dbuser = "dbusername";
@@ -737,7 +737,7 @@
 
 							echo $display_string;
 							?>
-					</pre>
+					
 				</code>
 			</section>
 			<section class="main-section" id="security">

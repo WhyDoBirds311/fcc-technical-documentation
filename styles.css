@@ -4,30 +4,28 @@ body * {
 	font-family: "Source Sans Pro", sans-serif;
 }
 
-body {
+body, #main {
 	margin: 0;
+	display: flex;
+	align-items: stretch;
+	justify-content: flex-start;
 }
 
-html {
-	height: 100%;
+#main {
+	flex-direction: row !important;
 }
+
 
 table, td, th {
 	border: 1px solid #555;
 	border-collapse: collapse;
 }
 
-#main {
-	display: grid;
-	grid-template-columns: 1.5fr 1fr auto;
-	grid-template-rows: auto;
-}
-
 #navbar {
-	width: 300px;
-	text-align: center;
+	width: 200px;
 	margin: 0 auto;
-	position: fixed;
+	height: 100%;
+	padding: 0 4em;
 	height: 100%;
 	background: linear-gradient(to top right, #cc0000, #e6b800);
 	color: #fff;
@@ -43,10 +41,11 @@ table, td, th {
 
 #navbar ul {
 	list-style-type: none;
-	height: 100%;
+	width: 200px;
 	overflow: auto;
 	text-align: left;
 	margin-top: 0;
+	padding-left: 0;
 }
 
 #navbar ul li a {
@@ -66,7 +65,46 @@ table, td, th {
 }
 
 #main-doc {
-	margin-left: 300px;
 	padding: 2em;
-	width: 75%;
+	margin-left:
+	width: 100%;
+	background-color: #1a1a1a;
+	color: #fff;
+}
+
+header {
+	font-size: 36px;
+	font-weight: 800;
+}
+
+code {
+	background: #aaa;
+	padding: 1em;
+	border-radius: 10px;
+	width: 80%;
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+	flex-direction: column;
+	font-size: 12px;
+	font-family: Courier;
+}
+
+@media only screen and (max-width: 768px) {
+
+	#main {
+		justify-content: center;
+		flex-direction: column !important;
+	}
+
+	#navbar {
+		position: relative;
+		width: 100%;
+		text-align: center;
+	}
+
+	#main-doc {
+		padding-left: 2em;
+		margin: 0;
+	}
 }
